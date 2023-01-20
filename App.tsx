@@ -1,10 +1,14 @@
 import Navigation from "@/navigation"
+import theme from "@/utils/theme"
 import { NavigationContainer } from "@react-navigation/native"
+import { ThemeProvider } from "@shopify/restyle"
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Navigation />
+      <ThemeProvider theme={theme}>
+        <Navigation />
+      </ThemeProvider>
     </NavigationContainer>
   )
 }
