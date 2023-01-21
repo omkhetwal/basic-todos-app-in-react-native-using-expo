@@ -12,6 +12,7 @@ interface IGlobalStore {
   tasks: ITask[]
   addTask: (task: ITask) => void
   addCategory: (category: ICategory) => void
+  updateTasks: (tasks: ITask[]) => void
   selectedCategory: null | ICategory
   updateSelectedCategory: (category: ICategory) => void
   toggleTaskStatus: (task: ITask) => void
@@ -26,6 +27,11 @@ const useGlobalStore = create<IGlobalStore>()(
       addTask: (task) => {
         const { tasks } = get()
         const updatedTasks = [...tasks, task]
+        set({
+          tasks: updatedTasks,
+        })
+      },
+      updateTasks: (updatedTasks) => {
         set({
           tasks: updatedTasks,
         })

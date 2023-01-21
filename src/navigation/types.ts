@@ -4,7 +4,7 @@ export type RootStackParamList = {
   Home: undefined
   CreateTask: undefined
   EditTask: {
-    task: undefined
+    task: ITask
   }
   CreateCategory: undefined
   EditCategory: {

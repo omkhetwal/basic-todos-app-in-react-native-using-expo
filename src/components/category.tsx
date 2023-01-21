@@ -7,11 +7,13 @@ import { Pressable, StyleSheet } from "react-native"
 
 type CategoryProps = {
   category: ICategory
+  index: number
   bottomSheetRef: RefObject<BottomSheetModal>
 }
 
-const Category = ({ bottomSheetRef, category }: CategoryProps) => {
-  const { updateSelectedCategory } = useGlobalStore()
+const Category = ({ bottomSheetRef, category, index }: CategoryProps) => {
+  const { updateSelectedCategory, selectedCategory, categories } =
+    useGlobalStore()
 
   const onUpdateSelectedCategory = (category: ICategory) => {
     updateSelectedCategory(category)
@@ -22,7 +24,7 @@ const Category = ({ bottomSheetRef, category }: CategoryProps) => {
     <Pressable onPress={() => onUpdateSelectedCategory(category)}>
       <Box
         p="4"
-        bg="gray100"
+        bg={selectedCategory?.id === category.id ? "blu200" : "gray100"}
         key={category.id}
         borderRadius="roundedXl"
         flexDirection="row"

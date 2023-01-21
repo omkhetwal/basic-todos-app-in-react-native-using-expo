@@ -4,6 +4,7 @@ import React from "react"
 import { Pressable, StyleSheet, View } from "react-native"
 import { FontAwesome } from "@expo/vector-icons"
 import useGlobalStore from "@/store"
+import { useNavigation } from "@react-navigation/native"
 
 type TaskProps = {
   task: ITask
@@ -11,6 +12,7 @@ type TaskProps = {
 
 const Task = ({ task }: TaskProps) => {
   const theme = useTheme<Theme>()
+  const navigation = useNavigation()
   const { toggleTaskStatus } = useGlobalStore()
   return (
     <Box bg="white" borderRadius="rounded2Xl" flex={1} my="2" mx="2">
@@ -23,6 +25,11 @@ const Task = ({ task }: TaskProps) => {
         <Pressable
           onPress={() => {
             toggleTaskStatus(task)
+          }}
+          onLongPress={() => {
+            navigation.navigate("EditTask", {
+              task,
+            })
           }}
         >
           <Box

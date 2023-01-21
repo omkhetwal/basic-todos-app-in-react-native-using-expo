@@ -59,9 +59,10 @@ const Home = () => {
         <Box flex={1} mx="4">
           <FlatList
             data={categories}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <Category
                 key={item.id}
+                index={index}
                 category={item}
                 bottomSheetRef={bottomSheetRef}
               />
