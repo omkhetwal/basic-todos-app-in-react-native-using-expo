@@ -2,24 +2,27 @@ import useGlobalStore from "@/store"
 import { Box, Text } from "@/utils/theme"
 import { useNavigation } from "@react-navigation/native"
 import React, { useMemo, useRef } from "react"
-import { Pressable, StyleSheet, View } from "react-native"
+import { FlatList, Pressable, StyleSheet, View } from "react-native"
 import { BottomSheetModal } from "@gorhom/bottom-sheet"
 
-import { FontAwesome, Ionicons } from "@expo/vector-icons"
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons"
+import Category from "@/components/category"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const Home = () => {
   const navigation = useNavigation()
+
+  const insets = useSafeAreaInsets()
   const bottomSheetRef = useRef<BottomSheetModal>(null)
 
   const snapPoints = useMemo(() => ["60%"], [])
 
   const { tasks, categories, updateSelectedCategory, selectedCategory } =
     useGlobalStore()
-
-  const onUpdateSelectedCategory = (category: ICategory) => {
-    updateSelectedCategory(category)
-    bottomSheetRef.current?.close()
-  }
 
   return (
     <Box flex={1} bg="gray100">
@@ -51,39 +54,37 @@ const Home = () => {
 
       <BottomSheetModal ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
         <Box flex={1} mx="4">
-          {categories.map((category) => (
-            <Pressable onPress={() => onUpdateSelectedCategory(category)}>
+          <FlatList
+            data={categories}
+            renderItem={({ item }) => (
+              <Category
+                key={item.id}
+                category={item}
+                bottomSheetRef={bottomSheetRef}
+              />
+            )}
+          />
+          <Box position="absolute" right={20} bottom={insets.bottom}>
+            <Pressable
+              onPress={() => {
+                bottomSheetRef.current?.close()
+                navigation.navigate("CreateCategory")
+              }}
+            >
               <Box
-                p="4"
                 bg="gray100"
-                key={category.id}
+                width={64}
+                height={64}
                 borderRadius="roundedXl"
-                flexDirection="row"
                 alignItems="center"
+                justifyContent="center"
               >
-                <FontAwesome
-                  name="square-o"
-                  size={24}
-                  color={category.color.code}
-                />
-                <Text variant="textXl" ml="4">
-                  {category.name}
-                </Text>
+                <MaterialCommunityIcons name="plus" size={40} color="black" />
               </Box>
             </Pressable>
-          ))}
+          </Box>
         </Box>
       </BottomSheetModal>
-
-      <Pressable
-        onPress={() => {
-          navigation.navigate("CreateCategory")
-        }}
-      >
-        <Text variant="text4Xl" color="green500">
-          Navigate to create category
-        </Text>
-      </Pressable>
     </Box>
   )
 }
