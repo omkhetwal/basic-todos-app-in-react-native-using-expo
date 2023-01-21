@@ -1,4 +1,4 @@
-import CreateCategory from "@/screen/create-category-"
+import CreateCategory from "@/screen/create-category"
 import CreateTask from "@/screen/create-task"
 import Home from "@/screen/home"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
