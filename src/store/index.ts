@@ -10,6 +10,7 @@ import { createJSONStorage, persist } from "zustand/middleware"
 interface IGlobalStore {
   categories: ICategory[]
   tasks: ITask[]
+  addCategory: (category: ICategory) => void
 }
 
 const useGlobalStore = create<IGlobalStore>()(
@@ -17,6 +18,13 @@ const useGlobalStore = create<IGlobalStore>()(
     (set, get) => ({
       categories: [],
       tasks: [],
+      addCategory: (category) => {
+        const { categories } = get()
+        const updatedCategories = [...categories, category]
+        set({
+          categories: updatedCategories,
+        })
+      },
     }),
     {
       name: "todos-store",

@@ -1,4 +1,4 @@
-const palette = {
+export const palette = {
   white: "#ffffff",
   gray50: "#f9fafb",
   gray100: "#f3f4f6",
@@ -28,7 +28,11 @@ const palette = {
 }
 
 export const colors = {
-  white: palette.white, // grays  gray50: palette.gray50,  gray100: palette.gray100,  gray200: palette.gray200,  gray900: palette.gray900,
+  white: palette.white, // grays
+  gray50: palette.gray50,
+  gray100: palette.gray100,
+  gray200: palette.gray200,
+  gray900: palette.gray900,
   red500: palette.red500,
   amber300: palette.amber300,
   amber400: palette.amber400,

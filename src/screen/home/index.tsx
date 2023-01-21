@@ -19,11 +19,11 @@ const Home = () => {
       ))}
       <Pressable
         onPress={() => {
-          navigation.navigate("CreateTask")
+          navigation.navigate("CreateCategory")
         }}
       >
         <Text variant="text4Xl" color="green500">
-          Navigate to create task
+          Navigate to create category
         </Text>
       </Pressable>
     </View>
