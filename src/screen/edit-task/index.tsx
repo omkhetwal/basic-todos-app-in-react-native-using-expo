@@ -33,6 +33,12 @@ const EditTask = () => {
     navigation.navigate("Home")
   }
 
+  const handleDeleteTask = () => {
+    const updatedTasks = tasks.filter((taskItem) => taskItem.id !== newTask.id)
+    updateTasks(updatedTasks)
+    navigation.navigate("Home")
+  }
+
   return (
     <Box flex={1} bg="gray100" p="4" pb="10">
       <Box
@@ -111,18 +117,35 @@ const EditTask = () => {
         </Box>
         <Box
           mx="4"
+          bg="red500"
+          width={"100%"}
+          borderRadius="roundedXl"
+          p="4"
+          alignItems="center"
+          style={{
+            marginTop: "60%",
+          }}
+        >
+          <Pressable onPress={handleDeleteTask}>
+            <Text variant="textXl" color="blu200">
+              Delete
+            </Text>
+          </Pressable>
+        </Box>
+        <Box
+          mx="4"
           bg="blu500"
           width={"100%"}
           borderRadius="roundedXl"
           p="4"
           alignItems="center"
           style={{
-            marginTop: "100%",
+            marginTop: 20,
           }}
         >
           <Pressable onPress={handleCreateTask}>
             <Text variant="textXl" color="blu200">
-              Create
+              Edit
             </Text>
           </Pressable>
         </Box>
