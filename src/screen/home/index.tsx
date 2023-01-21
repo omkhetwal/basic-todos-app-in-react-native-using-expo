@@ -12,6 +12,8 @@ import {
 } from "@expo/vector-icons"
 import Category from "@/components/category"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import CreateTaskButton from "@/components/create-task-button"
+import Tasks from "@/components/tasks"
 
 const Home = () => {
   const navigation = useNavigation()
@@ -51,7 +53,8 @@ const Home = () => {
           <Ionicons size={32} name="ios-filter" />
         </Pressable>
       </Box>
-
+      <Box height={20} />
+      <Tasks />
       <BottomSheetModal ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
         <Box flex={1} mx="4">
           <FlatList
@@ -85,6 +88,7 @@ const Home = () => {
           </Box>
         </Box>
       </BottomSheetModal>
+      <CreateTaskButton />
     </Box>
   )
 }
