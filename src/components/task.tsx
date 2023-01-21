@@ -3,6 +3,7 @@ import { useTheme } from "@shopify/restyle"
 import React from "react"
 import { Pressable, StyleSheet, View } from "react-native"
 import { FontAwesome } from "@expo/vector-icons"
+import useGlobalStore from "@/store"
 
 type TaskProps = {
   task: ITask
@@ -10,15 +11,20 @@ type TaskProps = {
 
 const Task = ({ task }: TaskProps) => {
   const theme = useTheme<Theme>()
+  const { toggleTaskStatus } = useGlobalStore()
   return (
-    <Box bg="white" borderRadius="rounded2Xl" flex={1}>
+    <Box bg="white" borderRadius="rounded2Xl" flex={1} my="2" mx="2">
       <Box
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
         p="4"
       >
-        <Pressable>
+        <Pressable
+          onPress={() => {
+            toggleTaskStatus(task)
+          }}
+        >
           <Box
             alignItems="center"
             flexDirection="row"
@@ -27,7 +33,9 @@ const Task = ({ task }: TaskProps) => {
             <FontAwesome
               name="square"
               size={24}
-              color={task.completed ? theme.colors.green500 : "#FEECEF"}
+              color={
+                task.completed ? theme.colors.green500 : theme.colors.gray200
+              }
             />
             <Text variant="textXl" ml="4">
               {task.name}

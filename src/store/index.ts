@@ -14,6 +14,7 @@ interface IGlobalStore {
   addCategory: (category: ICategory) => void
   selectedCategory: null | ICategory
   updateSelectedCategory: (category: ICategory) => void
+  toggleTaskStatus: (task: ITask) => void
 }
 
 const useGlobalStore = create<IGlobalStore>()(
@@ -39,6 +40,22 @@ const useGlobalStore = create<IGlobalStore>()(
         const updatedCategories = [...categories, category]
         set({
           categories: updatedCategories,
+        })
+      },
+      toggleTaskStatus: (task: ITask) => {
+        const { tasks } = get()
+        const updatedTasks = tasks.map((taskItem) => {
+          if (taskItem.id === task.id) {
+            return {
+              ...task,
+              completed: !task.completed,
+            }
+          } else {
+            return taskItem
+          }
+        })
+        set({
+          tasks: updatedTasks,
         })
       },
     }),
