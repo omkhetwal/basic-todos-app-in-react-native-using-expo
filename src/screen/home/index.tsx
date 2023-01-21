@@ -13,7 +13,13 @@ const Home = () => {
 
   const snapPoints = useMemo(() => ["60%"], [])
 
-  const { tasks, categories } = useGlobalStore()
+  const { tasks, categories, updateSelectedCategory, selectedCategory } =
+    useGlobalStore()
+
+  const onUpdateSelectedCategory = (category: ICategory) => {
+    updateSelectedCategory(category)
+    bottomSheetRef.current?.close()
+  }
 
   return (
     <Box flex={1} bg="gray100">
@@ -24,7 +30,16 @@ const Home = () => {
         mt="4"
         px="4"
       >
-        <Text variant="text2Xl">Home</Text>
+        <Box flexDirection="row" alignItems="center">
+          <FontAwesome
+            name="square-o"
+            size={24}
+            color={selectedCategory?.color.code}
+          />
+          <Text variant="text2Xl" ml="4">
+            {selectedCategory?.name}
+          </Text>
+        </Box>
         <Pressable
           onPress={() => {
             bottomSheetRef.current?.present()
@@ -37,23 +52,25 @@ const Home = () => {
       <BottomSheetModal ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
         <Box flex={1} mx="4">
           {categories.map((category) => (
-            <Box
-              p="4"
-              bg="gray100"
-              key={category.id}
-              borderRadius="roundedXl"
-              flexDirection="row"
-              alignItems="center"
-            >
-              <FontAwesome
-                name="square-o"
-                size={24}
-                color={category.color.code}
-              />
-              <Text variant="textXl" ml="4">
-                {category.name}
-              </Text>
-            </Box>
+            <Pressable onPress={() => onUpdateSelectedCategory(category)}>
+              <Box
+                p="4"
+                bg="gray100"
+                key={category.id}
+                borderRadius="roundedXl"
+                flexDirection="row"
+                alignItems="center"
+              >
+                <FontAwesome
+                  name="square-o"
+                  size={24}
+                  color={category.color.code}
+                />
+                <Text variant="textXl" ml="4">
+                  {category.name}
+                </Text>
+              </Box>
+            </Pressable>
           ))}
         </Box>
       </BottomSheetModal>

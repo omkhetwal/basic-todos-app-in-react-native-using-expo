@@ -11,6 +11,8 @@ interface IGlobalStore {
   categories: ICategory[]
   tasks: ITask[]
   addCategory: (category: ICategory) => void
+  selectedCategory: null | ICategory
+  updateSelectedCategory: (category: ICategory) => void
 }
 
 const useGlobalStore = create<IGlobalStore>()(
@@ -18,6 +20,12 @@ const useGlobalStore = create<IGlobalStore>()(
     (set, get) => ({
       categories: [],
       tasks: [],
+      selectedCategory: null,
+      updateSelectedCategory(category) {
+        set({
+          selectedCategory: category,
+        })
+      },
       addCategory: (category) => {
         const { categories } = get()
         const updatedCategories = [...categories, category]
